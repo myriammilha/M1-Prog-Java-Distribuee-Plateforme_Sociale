@@ -57,5 +57,3 @@ java User --id=user2 --serverIp=127.0.0.1 --serverPort=12345 --port=5002
 ## Remarque
 
 TCP est utilisé comme **mécanisme de communication fiable**, la logique sociale est implémentée au niveau applicatif.
-
-```
