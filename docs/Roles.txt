@@ -1,0 +1,156 @@
+
+/**
+### Rôles de chaque classe et méthodes implémentées
+
+#### **Classe User**
+**Rôle :** Représente un utilisateur général dans le système, capable d'envoyer et de recevoir des messages, de mettre à jour ses opinions et d'interagir avec d'autres utilisateurs.
+
+**Méthodes et leurs rôles :**
+- **`User(String id, double opinion, double influence, String serverIp, int serverPort, int port)` :** Constructeur pour initialiser l'utilisateur avec les paramètres donnés.
+- **`getId()` :** Renvoie l'identifiant de l'utilisateur.
+- **`getOpinion()` :** Renvoie l'opinion actuelle de l'utilisateur.
+- **`updateOpinion(double newOpinion, double influence)` :** Met à jour l'opinion de l'utilisateur en fonction de la nouvelle opinion et de l'influence.
+- **`getInfluence()` :** Renvoie l'influence de l'utilisateur.
+- **`registerWithServer()` :** Enregistre l'utilisateur auprès du serveur central.
+- **`startServer()` :** Démarre un serveur pour écouter les messages entrants.
+- **`sendMessage(String recipientId, String topic)` :** Envoie un message à un autre utilisateur.
+- **`receiveMessage(String topic, double opinion)` :** Reçoit un message et met à jour l'opinion.
+- **`main(String[] args)` :** Initialise l'utilisateur avec des opinions et une influence aléatoires et démarre le serveur utilisateur.
+
+**Pourquoi chaque implémentation :**
+- **Constructeur et accesseurs (getters) :** Pour initialiser et récupérer les détails de l'utilisateur.
+- **`updateOpinion` :** Pour mettre à jour l'opinion de l'utilisateur en fonction des interactions reçues.
+- **`registerWithServer` et `startServer` :** Pour permettre à l'utilisateur de s'enregistrer auprès du serveur et de recevoir des messages.
+- **`sendMessage` et `receiveMessage` :** Pour gérer l'envoi et la réception de messages entre utilisateurs.
+
+#### **Classe ServerProxy**
+**Rôle :** Gère la communication entre les utilisateurs et le serveur central.
+
+**Méthodes et leurs rôles :**
+- **`ServerProxy(String serverIp, int serverPort)` :** Constructeur pour initialiser le proxy avec l'adresse IP et le port du serveur.
+- **`registerUser(String userId, int port)` :** Enregistre un utilisateur auprès du serveur central.
+- **`getUserInfo(String userId)` :** Récupère les informations sur un utilisateur à partir de son identifiant.
+- **`notifyNewTopic(String topic)` :** Notifie le serveur d'un nouveau sujet.
+
+**Pourquoi chaque implémentation :**
+- **Constructeur :** Pour initialiser le proxy avec les informations du serveur.
+- **`registerUser` :** Pour enregistrer les utilisateurs auprès du serveur central.
+- **`getUserInfo` :** Pour permettre aux utilisateurs de récupérer les informations des autres utilisateurs.
+- **`notifyNewTopic` :** Pour informer le serveur de nouveaux sujets proposés.
+
+#### **Classe Server**
+**Rôle :** Serveur central pour enregistrer les utilisateurs et gérer les nouveaux sujets.
+
+**Méthodes et leurs rôles :**
+- **`registerUser(String userId, String ipAddress, int port)` :** Enregistre un utilisateur avec son adresse IP et son port.
+- **`getUserInfo(String userId)` :** Récupère les informations sur un utilisateur à partir de son identifiant.
+- **`notifyNewTopic(String topic)` :** Notifie tous les utilisateurs enregistrés d'un nouveau sujet.
+- **`main(String[] args)` :** Démarre le serveur et gère les enregistrements entrants.
+
+**Pourquoi chaque implémentation :**
+- **`registerUser` :** Pour enregistrer les utilisateurs et gérer leurs informations de connexion.
+- **`getUserInfo` :** Pour fournir les informations nécessaires aux utilisateurs pour communiquer entre eux.
+- **`notifyNewTopic` :** Pour informer tous les utilisateurs des nouveaux sujets de discussion.
+- **`main` :** Pour initialiser et démarrer le serveur.
+
+#### **Classe MessageHandler**
+**Rôle :** Gère les messages entrants pour un utilisateur.
+
+**Méthodes et leurs rôles :**
+- **`run()` :** Traite les messages entrants et met à jour les opinions de l'utilisateur en conséquence.
+
+**Pourquoi chaque implémentation :**
+- **`run` :** Pour gérer la réception et le traitement des messages entrants, assurant que les opinions des utilisateurs sont mises à jour correctement.
+
+#### **Classe Proposer**
+**Rôle :** Propose de nouveaux sujets pour la discussion dans le système.
+
+**Méthodes et leurs rôles :**
+- **`propose()` :** Notifie le serveur d'un nouveau sujet.
+- **`main(String[] args)` :** Initialise et exécute le proposeur avec le sujet spécifié.
+
+**Pourquoi chaque implémentation :**
+- **`propose` :** Pour permettre aux utilisateurs de proposer de nouveaux sujets de discussion.
+- **`main` :** Pour initialiser et démarrer un proposeur avec les arguments fournis.
+
+#### **Classe Polarimeter**
+**Rôle :** Mesure et enregistre la polarisation des opinions parmi les utilisateurs.
+
+**Méthodes et leurs rôles :**
+- **`measurePolarization()` :** Calcule la mesure de polarisation.
+- **`start()` :** Démarre la mesure périodique de la polarisation.
+- **`main(String[] args)` :** Initialise et démarre le polarimètre.
+
+**Pourquoi chaque implémentation :**
+- **`measurePolarization` :** Pour calculer et enregistrer la polarisation des opinions.
+- **`start` :** Pour lancer le processus de mesure de la polarisation à intervalles réguliers.
+- **`main` :** Pour initialiser et démarrer un polarimètre avec les arguments fournis.
+
+#### **Classe Influencer**
+**Rôle :** Représente un influenceur qui diffuse des opinions à plusieurs utilisateurs simultanément.
+
+**Méthodes et leurs rôles :**
+- **`broadcastMessage(List<String> recipientIds, String topic)` :** Envoie des messages à plusieurs destinataires.
+- **`main(String[] args)` :** Initialise et exécute l'influenceur.
+
+**Pourquoi chaque implémentation :**
+- **`broadcastMessage` :** Pour permettre aux influenceurs de diffuser leurs opinions à un large public.
+- **`main` :** Pour initialiser et démarrer un influenceur avec les arguments fournis.
+
+#### **Classe CriticalThinker**
+**Rôle :** Représente un utilisateur qui évalue de manière critique les opinions reçues avant de mettre à jour les siennes.
+
+**Méthodes et leurs rôles :**
+- **`receiveMessage(String topic, double opinion)` :** Valide et met à jour l'opinion si elle est acceptée.
+- **`validateOpinion(double opinion)` :** Valide l'opinion reçue en fonction de critères spécifiques.
+- **`main(String[] args)` :** Initialise et exécute le Critical Thinker.
+
+**Pourquoi chaque implémentation :**
+- **`receiveMessage` :** Pour vérifier et éventuellement mettre à jour l'opinion en fonction des messages reçus.
+- **`validateOpinion` :** Pour s'assurer que seules les opinions valides sont acceptées.
+- **`main` :** Pour initialiser et démarrer un Critical Thinker avec les arguments fournis.
+
+#### **Classe ConsensusFinder**
+**Rôle :** Simule le processus de recherche de consensus entre deux utilisateurs sur un sujet donné.
+
+**Méthodes et leurs rôles :**
+- **`findConsensus(User user1, User user2, String topic)` :** Tente de trouver un consensus entre deux utilisateurs.
+- **`main(String[] args)` :** Initialise les utilisateurs et tente de trouver un consensus sur un sujet.
+
+**Pourquoi chaque implémentation :**
+- **`findConsensus` :** Pour faciliter la formation de consensus entre les utilisateurs.
+- **`main` :** Pour initialiser et démarrer un ConsensusFinder avec les arguments fournis.
+
+### Enchaînement de l'exécution en détails
+
+1. **Démarrage du serveur :**
+   - La classe `Server` est démarrée en premier avec le port spécifié. Elle initialise la carte des utilisateurs et écoute les connexions entrantes pour enregistrer les utilisateurs et notifier les nouveaux sujets.
+
+2. **Enregistrement des utilisateurs :**
+   - Les utilisateurs (`User`, `CriticalThinker`, `Influencer`) sont créés avec des opinions et des influences aléatoires. Ils s'enregistrent auprès du serveur central via `ServerProxy.registerUser()`.
+
+3. **Proposition de nouveaux sujets :**
+   - Un `Proposer` est initialisé avec un sujet et informe le serveur de ce nouveau sujet via `ServerProxy.notifyNewTopic()`. Le serveur notifie ensuite tous les utilisateurs enregistrés.
+
+4. **Interaction entre utilisateurs :**
+   - Les utilisateurs envoient et reçoivent des messages. Lorsqu'un utilisateur envoie un message (`User.sendMessage()`), il obtient l'adresse IP et le port du destinataire du serveur et envoie le message via une socket TCP.
+   - Le destinataire reçoit le message via `MessageHandler` qui lit le message et appelle `User.receiveMessage()` pour mettre à jour l'opinion.
+
+5. **Validation des opinions par les Critical Thinkers :**
+   - Lorsqu'un `CriticalThinker` reçoit un message, il valide l'opinion reçue via `validateOpinion()`. Si l'opinion est acceptée, il met à jour son opinion.
+
+6. **Diffusion des opinions par les Influenceurs :**
+   - Un
+
+ `Influencer` diffuse des messages à plusieurs destinataires via `broadcastMessage()`. Les utilisateurs reçoivent les messages et mettent à jour leurs opinions, sauf les `CriticalThinkers` qui rejettent les opinions des influenceurs.
+
+7. **Mesure de la polarisation :**
+   - Un `Polarimeter` mesure périodiquement la polarisation des opinions parmi les utilisateurs via `measurePolarization()`. Il calcule la polarisation en fonction de la distribution des opinions.
+
+8. **Recherche de consensus :**
+   - Un `ConsensusFinder` tente de trouver un consensus entre deux utilisateurs en les faisant échanger leurs opinions et en les mettant à jour à la moyenne de leurs opinions initiales.
+
+Ce processus continue, avec les utilisateurs interagissant, les opinions se mettant à jour, les influenceurs diffusant des messages, et les mesures de polarisation étant prises, pour simuler et analyser la dynamique des opinions dans le système.
+
+
+*/
