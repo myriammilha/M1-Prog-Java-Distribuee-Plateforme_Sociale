@@ -1,4 +1,3 @@
-````md
 # Distributed Social Network – Java TCP (Master 1 - Programmation Java Distribuée)
 
 ## Description
